@@ -4,8 +4,16 @@ namespace App\Greeter;
 
 class Greeter
 {
-    public function greet() :string
+    /**
+     * 朝ならおはようございますを返す
+     *
+     * @param \DateTimeInterface $currentTime
+     * @return string
+     */
+    public function greet(\DateTimeInterface $currentTime) :string
     {
-        return 'おはようございます';
+        if($currentTime){
+            return 'おはようございます';
+        }
     }
 }

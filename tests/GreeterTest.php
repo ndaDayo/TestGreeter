@@ -17,7 +17,8 @@ class GreeterTest extends TestCase
      */
     public function あいさつする()
     {
-        $this->assertThat($this->SUT->greet(), $this->equalTo('おはようございます'));
+        $currentTime = new \DateTimeImmutable('08:00:00');
+        $this->assertThat($this->SUT->greet($currentTime), $this->equalTo('おはようございます'));
     }
 
     protected function setUp()
