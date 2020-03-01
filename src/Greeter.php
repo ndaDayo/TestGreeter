@@ -2,7 +2,6 @@
 // src/Greeter.php
 namespace App\Greeter;
 
-use App\Greeter\Clock;
 
 class Greeter
 {
@@ -12,13 +11,20 @@ class Greeter
     private $clock;
 
     /**
+     * @var MorningTimeRange
+     */
+    private $morningTimeRange;
+
+    /**
      * Greeter constructor.
      *
-     * @param Clock $clock
+     * @param Clock            $clock
+     * @param MorningTimeRange $morningTimeRange
      */
-    public function __construct(Clock $clock)
+    public function __construct(Clock $clock, MorningTimeRange $morningTimeRange)
     {
         $this->clock = $clock;
+        $this->morningTimeRange = $morningTimeRange;
     }
 
 
@@ -32,11 +38,21 @@ class Greeter
     {
         $currentTime = $this->clock->getCurrentTime();
 
-        if ($currentTime >= new \DateTimeImmutable('05:00:00') &&
-            $currentTime < new \DateTimeImmutable('12:00:00')) {
+        if ($this->timeIsMorning($currentTime)) {
             return 'おはようございます';
         }
 
         return '';
+    }
+
+    /**
+     *
+     * @param \DateTimeInterface $currentTime
+     * @return bool
+     * @throws \Exception
+     */
+    private function timeIsMorning(\DateTimeInterface $currentTime): bool
+    {
+        return $currentTime >= new \DateTimeImmutable('05:00:00') & $currentTime < new \DateTimeImmutable('12:00:00');
     }
 }

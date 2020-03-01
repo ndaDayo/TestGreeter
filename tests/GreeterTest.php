@@ -4,6 +4,7 @@ namespace Tests\Greeter;
 
 use App\Greeter\Clock;
 use App\Greeter\Greeter;
+use App\Greeter\MorningTimeRange;
 use PHPUnit\Framework\TestCase;
 
 class GreeterTest extends TestCase
@@ -13,12 +14,21 @@ class GreeterTest extends TestCase
      */
     public $SUT;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
     private $clock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $morningTimeRange;
 
     protected function setUp()
     {
         $this->clock = $this->getMockBuilder(Clock::class)->getMock();
-        $this->SUT = new Greeter($this->clock);
+        $this->morningTimeRange = $this->getMockBuilder(MorningTimeRange::class)->getMock();
+        $this->SUT = new Greeter($this->clock,$this->morningTimeRange);
     }
 
     /**
